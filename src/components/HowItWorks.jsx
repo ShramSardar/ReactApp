@@ -4,6 +4,8 @@ const HowItWorks = () => {
   return (
     <>
            {/* <!-- How It Works --> */}
+           
+
         <section id="how-it-works">
                          <h2>How Does It Work?</h2>
             <div className="container">
