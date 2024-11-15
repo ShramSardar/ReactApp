@@ -1,36 +1,32 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import DarkMode from './DarkMode'; 
 
 const Navbar = () => {
   return (
     <>
-    <header> 
-
-    <section id="header-section">
-
-      {/* <!-- Navbar --> */}
+      <header>
+        <section id="header-section">
           <nav className="navbar">
-        <div className="navbar-left">
-            <img src="images/Logosil.svg" alt="Silicon Logo" className="navbar-logo" />
-            <span className="navbar-title">Silicon</span>
-            <a href="#features" className="navbar-link">Features</a>
-        </div>
-        
-        <div className="navbar-right">
-          <p id="dark-mode-btn">Dark Mode</p>
-            <div className="dark-mode-toggle">
-                <input type="checkbox" id="darkModeToggle" className="dark-mode-checkbox" />
-                <label htmlFor="darkModeToggle" className="dark-mode-label">
-                </label>
-            <button className="contact-button">Sign in / up</button>
-
+            <div className="navbar-left">
+              <img src="images/Logosil.svg" alt="Silicon Logo" className="navbar-logo" />
+              <span className="navbar-title">Silicon</span>
+              <a href="#features" className="navbar-link">Features</a>
+              {/* Home Button */}
+              <Link to="/" className="navbar-link">Home</Link>
+              {/* Contacts Button */}
+              <Link to="/contact" className="navbar-link">Contacts</Link> 
             </div>
-        </div>
-    </nav>
-    </section>
-  </header>
 
+            <div className="navbar-right">
+              <DarkMode />
+              <button className="contact-button">Sign in / up</button>
+            </div>
+          </nav>
+        </section>
+      </header>
     </>
-  )
-}
-  
-export default Navbar
+  );
+};
+
+export default Navbar;

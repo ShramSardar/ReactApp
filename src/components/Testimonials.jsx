@@ -1,39 +1,69 @@
-import React from 'react'
+
+// Testimonials.jsx
+
+import React, { useState, useEffect } from 'react';
+import StarRating from './StarRating'; // Import the StarRating component
 
 const Testimonials = () => {
+  const [testimonials, setTestimonials] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetch('https://win24-assignment.azurewebsites.net/api/testimonials')
+      .then(response => response.json())
+      .then(data => {
+        if (Array.isArray(data) && data.length === 0) {
+          setTestimonials([]);
+        } else {
+          setTestimonials(data);
+        }
+      })
+      .catch(error => {
+        console.error('API Error:', error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section id="testimonials">
+        <div className="container">
+          <h2>Clients are Loving Our App</h2>
+          <div>Loading...</div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <>
-           {/* <!-- Testimonials --> */}
-          <section id="testimonials">
-            <div className="container">
-              <h2>Clients are Loving Our App</h2>
-              <div className="testimonial-grid">
-                <div className="testimonial">
-
-                  <blockquote>
-                    <p>Nunc senectus leo vel venenatis accumsan vestibulum sollicitudin amet porttitor. Nisl bibendum nulla tincidunt eu enim ornare dictumst sit amet. Dictum pretium dolor tincidunt egestas eget nunc.</p>
-                  </blockquote>
-                  <div className="author">
-                    <img src="images/boyface.svg" alt="Albert Flores"/>
-                    Albert Flores, Developer
-                  </div>
-                </div>
-                <div className="testimonial">
-
-                  <blockquote>
-                    <p>Another testimonial text here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  </blockquote>
-                  <div className="author">
-                    <img src="/images/girlface.svg" alt="Jane Doe"/>
-                    Jane Doe, Designer
-                  </div>
-                </div>
+    <section id="testimonials">
+      <div className="container">
+        <h2>Clients are Loving Our App</h2>
+        <div className="testimonial-grid">
+          {testimonials.map((testimonial) => (
+            <div key={testimonial.id} className="testimonial">
+              <blockquote>
+                <p>{testimonial.comment || 'No testimonial content available'}</p>
+              </blockquote>
+              <div className="author">
+                <img 
+                  src={testimonial.avatarUrl}
+                  alt={testimonial.author || 'Anonymous'}
+                />
+                <span>{testimonial.author || 'Anonymous'}, {testimonial.jobRole || 'User'}</span>
               </div>
-            </div>
-          </section>
-       
-    </>
-  )
-}
 
-export default Testimonials
+              {/* Render StarRating component here */}
+              <StarRating rating={testimonial.starRating || 0} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Testimonials;
+

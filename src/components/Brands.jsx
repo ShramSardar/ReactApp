@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react' // Import the React library
 
 const Brands = () => {
   return (

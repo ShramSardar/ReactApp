@@ -3,7 +3,7 @@ import React from 'react'
 const PaymentDetails = () => {
   return (
     <>
-             {/* <!-- Payment Details --> */}
+            
           
           <section id="payment-details">
             <div className="container">

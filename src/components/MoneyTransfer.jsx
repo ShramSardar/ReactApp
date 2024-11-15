@@ -4,7 +4,7 @@ const MoneyTransfer = () => {
   return (
     <>
       
-      {/* <!-- Money Transfer --> */}
+
 
 <section id="money-transfer">
     <div className="container">

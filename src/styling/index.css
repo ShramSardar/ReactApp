@@ -989,21 +989,298 @@ footer #footer-section p {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+.contact-page {
+  padding: 8rem;
+  background-color: #ffffff;
+}
+[data-theme=dark] .contact-page {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+}
+.contact-page .breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  color: #666;
+}
+[data-theme=dark] .contact-page .breadcrumb {
+  color: #e0e0e0;
+}
+.contact-page .breadcrumb span {
+  font-size: 0.9rem;
+}
+.contact-page h1 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #1a1a1a;
+}
+[data-theme=dark] .contact-page h1 {
+  color: #e0e0e0;
 }
 
-@media (max-width: 767px) {
-  .container {
-    padding: 0 1rem;
-  }
-  section {
-    padding: 3rem 0;
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+@media (max-width: 768px) {
+  .contact-container {
+    grid-template-columns: 1fr;
   }
 }
-@media (min-width: 768px) and (max-width: 1023px) {
-  .container {
-    padding: 0 2rem;
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info-card {
+  background: #edeff9;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+[data-theme=dark] .info-card {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+}
+.info-card .icon {
+  color: #6366f1;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 1rem;
+}
+[data-theme=dark] .info-card .icon {
+  color: #a56eff;
+}
+.info-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #1a1a1a;
+}
+[data-theme=dark] .info-card h3 {
+  color: #e0e0e0;
+}
+.info-card p {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+[data-theme=dark] .info-card p {
+  color: #e0e0e0;
+}
+.info-card .link-button {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+.info-card .link-button:hover {
+  text-decoration: underline;
+}
+[data-theme=dark] .info-card .link-button {
+  color: #a56eff;
+}
+
+.consultation-form {
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+[data-theme=dark] .consultation-form {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+  box-shadow: none;
+}
+.consultation-form h2 {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #1a1a1a;
+}
+[data-theme=dark] .consultation-form h2 {
+  color: #e0e0e0;
+}
+.consultation-form .form-group {
+  margin-bottom: 1.5rem;
+}
+.consultation-form .form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+}
+[data-theme=dark] .consultation-form .form-group label {
+  color: #e0e0e0;
+}
+.consultation-form .form-group input,
+.consultation-form .form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: white;
+}
+[data-theme=dark] .consultation-form .form-group input,
+[data-theme=dark] .consultation-form .form-group select {
+  background: #1a1a2e;
+  color: #e0e0e0;
+  border-color: #a56eff;
+}
+.consultation-form .form-group input:focus,
+.consultation-form .form-group select:focus {
+  outline: none;
+  border-color: #6366f1;
+}
+[data-theme=dark] .consultation-form .form-group input:focus,
+[data-theme=dark] .consultation-form .form-group select:focus {
+  border-color: #a56eff;
+}
+.consultation-form .submit-button {
+  width: 100%;
+  padding: 0.875rem;
+  background: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.consultation-form .submit-button:hover {
+  background: #4f46e5;
+}
+[data-theme=dark] .consultation-form .submit-button {
+  background-color: #a56eff;
+}
+[data-theme=dark] .consultation-form .submit-button:hover {
+  background-color: #853bff;
+}
+
+.map-and-locations-wrapper {
+  display: flex;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+@media (max-width: 768px) {
+  .map-and-locations-wrapper {
+    flex-direction: column;
   }
+}
+.map-and-locations-wrapper .map-section {
+  width: 50%;
+  margin-right: auto;
+}
+.map-and-locations-wrapper .locations {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.map-and-locations-wrapper .locations .center-info {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+[data-theme=dark] .map-and-locations-wrapper .locations .center-info {
+  background-color: #1a1a2e;
+  color: #e0e0e0;
+}
+
+.locations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+}
+@media (max-width: 768px) {
+  .locations {
+    grid-template-columns: 1fr;
+  }
+}
+
+.center-info h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.7rem;
+  color: #1a1a1a;
+}
+[data-theme=dark] .center-info h3 {
+  color: #e0e0e0;
+}
+.center-info .info-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.center-info .info-line .icon {
+  color: #6366f1;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+[data-theme=dark] .center-info .info-line .icon {
+  color: #a56eff;
+}
+.center-info .info-line p {
+  color: #634b4b;
+  line-height: 1.5;
+  margin: 0;
+}
+[data-theme=dark] .center-info .info-line p {
+  color: #e0e0e0;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.form-group .error {
+  border-color: #ff4d4f;
+}
+.form-group .error:focus {
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+}
+.form-group .error-message {
+  color: #ff4d4f;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.social-links a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+.social-links a:hover {
+  color: #4f46e5;
+}
+[data-theme=dark] .social-links a {
+  color: #a56eff;
+}
+[data-theme=dark] .social-links a:hover {
+  color: #853bff;
+}
+
+/* Styles for star rating */
+.star-rating {
+  font-size: 1.5rem;
+  color: #ccc; /* Default color for stars */
+}
+
+.star-rating .filled {
+  color: gold; /* Color for filled stars */
+}
+
+.star-rating .empty {
+  color: #ccc; /* Color for empty stars */
 }/*# sourceMappingURL=index.css.map */

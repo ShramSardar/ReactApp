@@ -1,140 +1,211 @@
-// ContactPage.jsx
-import React, { useState } from 'react';
 
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Mail, Users, MapPin, Phone, Clock } from 'lucide-react';
+import Navbar from './Navbar';  // Import Navbar
+import useFormValidation from '../hooks/useFormValidation';  
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
+  // Use the useFormValidation hook for form state management and validation
+  const { values, errors, handleChange, validateForm } = useFormValidation({
     fullName: '',
     email: '',
     specialist: ''
   });
 
-  const handleSubmit = (e) => {
+  const [successMessage, setSuccessMessage] = useState('');
+  const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission
+
+    // Validate the form
+    if (validateForm()) {
+      setIsSubmitting(true);
+      setError('');
+      setSuccessMessage('');
+
+      try {
+        const response = await fetch('https://win24-assignment.azurewebsites.net/api/forms/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        });
+
+        if (response.ok) {
+          setSuccessMessage('Your appointment has been successfully made! We will contact you shortly.');
+          // Reset form values after successful submission
+          handleChange({ target: { name: 'fullName', value: '' } });
+          handleChange({ target: { name: 'email', value: '' } });
+          handleChange({ target: { name: 'specialist', value: '' } });
+        } else {
+          throw new Error('Failed to submit your request. Please try again later.');
+        }
+      } catch (err) {
+        console.error('Error during fetch:', err);
+        setError(err.message || 'Failed to submit your request. Please try again later.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
   };
 
   return (
     <div className="contact-page">
-      {/* Breadcrumb */}
-      <div className="breadcrumb">
-        <span className="breadcrumb__item">Homepage</span>
-        <span className="breadcrumb__separator">&gt;</span>
-        <span className="breadcrumb__item">Contact</span>
-      </div>
+      <Navbar />
+      <br />
+      <br />
 
       <div className="contact-container">
-        <h1 className="contact-title">Contact Us</h1>
-        
-        <div className="contact-grid">
-          {/* Left Column */}
-          <div className="contact-info">
-            {/* Email Section */}
-            <div className="info-card">
-              {/* <Mail className="info-card__icon" /> */}
-              <div className="info-card__content">
-                <h2>Email us</h2>
-                <p>Please feel free to drop us a line. We will respond as soon as possible.</p>
-                <a href="#" className="info-card__link">Leave a message →</a>
-              </div>
+        <div className="breadcrumb">
+          <span className="home-icon">🏠</span>
+          <Link to="/" className="contact-link">Homepage</Link>
+          <span>&gt;</span>
+          <span>Contact</span>
+        </div>
+
+        <h1>Contact Us</h1>
+
+        <div className="contact-info">
+          <div className="info-card">
+            <Mail className="icon" />
+            <h3>Email us</h3>
+            <p>Please feel free to drop us a line. We will respond as soon as possible.</p>
+            <a href="#" className="link-button">Leave a message →</a>
+          </div>
+
+          <div className="info-card">
+            <Users className="icon" />
+            <h3>Careers</h3>
+            <p>Lorem ipsum dolor sit amet consectetur.</p>
+            <a href="#" className="link-button">Send an application →</a>
+          </div>
+        </div>
+
+        <div className="consultation-form">
+          <h2>Get Online Consultation</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label>Full name</label>
+              <input
+                type="text"
+                name="fullName"
+                value={values.fullName}
+                onChange={handleChange}
+                className={errors.fullName ? 'error' : ''}
+                required
+                disabled={isSubmitting}
+              />
+              {errors.fullName && <span className="error-message">{errors.fullName}</span>}
             </div>
 
-            {/* Careers Section */}
-            <div className="info-card">
-              {/* <Users className="info-card__icon" /> */}
-              <div className="info-card__content">
-                <h2>Careers</h2>
-                <p>Sit ac ipsum leo lorem magna nunc mattis maecenas non vestibulum.</p>
-                <a href="#" className="info-card__link">Send an application →</a>
-              </div>
+            <div className="form-group">
+              <label>Email address</label>
+              <input
+                type="email"
+                name="email"
+                value={values.email}
+                onChange={handleChange}
+                className={errors.email ? 'error' : ''}
+                required
+                disabled={isSubmitting}
+              />
+              {errors.email && <span className="error-message">{errors.email}</span>}
             </div>
 
-            {/* Map Section */}
-            <div className="map-container">
-              <img src="/api/placeholder/800/400" alt="Location Map" className="map-image" />
+            <div className="form-group">
+              <label>Specialist</label>
+              <select
+                name="specialist"
+                value={values.specialist}
+                onChange={handleChange}
+                className={errors.specialist ? 'error' : ''}
+                required
+                disabled={isSubmitting}
+              >
+                <option value="">Select a specialist</option>
+                <option value="general">General Physician</option>
+                <option value="cardio">Cardiologist</option>
+                <option value="derma">Dermatologist</option>
+              </select>
+              {errors.specialist && <span className="error-message">{errors.specialist}</span>}
+            </div>
+
+            <button
+              type="submit"
+              className="submit-button"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Make an appointment'}
+            </button>
+          </form>
+
+          {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
+          {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
+        </div>
+      </div>
+
+      <div className="map-and-locations-wrapper">
+        <div className="map-section">
+          <img 
+            src="./images/mapg.svg" 
+            alt="Location map" 
+            className="map-image"
+          />
+        </div>
+
+        <div className="locations">
+          <div className="center-info">
+            <h3>Medical Center 1</h3>
+            <div className="info-line">
+              <MapPin className="icon" />
+              <p>4517 Washington Ave, Manchester, Kentucky 39495</p>
+            </div>
+            <div className="info-line">
+              <Phone className="icon" />
+              <p>(406) 555-0120</p>
+            </div>
+            <div className="info-line">
+              <Clock className="icon" />
+              <div>
+                <p>Mon - Fri: 9:00 am - 22:00 am</p>
+                <p>Sat - Sun: 9:00 am - 20:00 am</p>
+              </div>
             </div>
           </div>
 
-          {/* Right Column */}
-          <div className="contact-form-section">
-            <div className="form-card">
-              <h2>Get Online Consultation</h2>
-              <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    placeholder="Full name"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData({...formData, fullName: e.target.value})}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    placeholder="Email address"
-                    value={formData.email}
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  />
-                </div>
-                <div className="form-group">
-                  <select
-                    value={formData.specialist}
-                    onChange={(e) => setFormData({...formData, specialist: e.target.value})}
-                  >
-                    <option value="">Specialist</option>
-                    <option value="doctor1">Doctor 1</option>
-                    <option value="doctor2">Doctor 2</option>
-                  </select>
-                </div>
-                <button type="submit" className="submit-button">
-                  Make an appointment
-                </button>
-              </form>
+          <div className="center-info">
+            <h3>Medical Center 2</h3>
+            <div className="info-line">
+              <MapPin className="icon" />
+              <p>2464 Royal Ln. Mesa, New Jersey 45463</p>
             </div>
-
-            {/* Medical Centers Info */}
-            <div className="medical-centers">
-              <div className="center-card">
-                <h3>Medical Center 1</h3>
-                <div className="center-info">
-                  {/* <MapPin className="icon" /> */}
-                  <span>4517 Washington Ave, Manchester, Kentucky 39495</span>
-                </div>
-                <div className="center-info">
-                  {/* <Phone className="icon" /> */}
-                  <span>(406) 555-0120</span>
-                </div>
-                <div className="center-info">
-                  {/* <Clock className="icon" /> */}
-                  <div className="hours">
-                    <p>Mon - Fri: 9:00 am - 22:00 am</p>
-                    <p>Sat - Sun: 9:00 am - 20:00 am</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="center-card">
-                <h3>Medical Center 2</h3>
-                <div className="center-info">
-                  {/* <MapPin className="icon" /> */}
-                  <span>2464 Royal Ln. Mesa, New Jersey 45463</span>
-                </div>
-                <div className="center-info">
-                  {/* <Phone className="icon" /> */}
-                  <span>(406) 544-0123</span>
-                </div>
-                <div className="center-info">
-                  {/* <Clock className="icon" /> */}
-                  <div className="hours">
-                    <p>Mon - Fri: 9:00 am - 22:00 am</p>
-                    <p>Sat - Sun: 9:00 am - 20:00 am</p>
-                  </div>
-                </div>
+            <div className="info-line">
+              <Phone className="icon" />
+              <p>(406) 544-0123</p>
+            </div>
+            <div className="info-line">
+              <Clock className="icon" />
+              <div>
+                <p>Mon - Fri: 9:00 am - 22:00 am</p>
+                <p>Sat - Sun: 9:00 am - 20:00 am</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="social-links">
+        <a href="#" aria-label="Facebook">FB</a>
+        <a href="#" aria-label="Twitter">TW</a>
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="YouTube">YT</a>
+      </div>
+      <br />
+      <br />
+      <p id="fotq">&copy; 2024 Silicon. All rights reserved. Credit MadrasThemes</p>
     </div>
   );
 };

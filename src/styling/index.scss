@@ -3,6 +3,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
+  
 
 
 }
@@ -172,6 +174,7 @@ header {
 
 
 
+
 // Base styles for the website
 body {
   @include dark-mode {
@@ -183,6 +186,7 @@ body {
   color: $text-color;
   background-color: $background-color;
   overflow-x: hidden;
+  
 }
 
 .container {
@@ -867,6 +871,8 @@ button, .button {
   @include dark-mode {
     background-color: darken($dark-background, 5%);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    // background-color: $dark-background;
+
   }
 
 
@@ -1121,27 +1127,385 @@ footer {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+// Contact Page with Dark Mode
+.contact-page {
+  padding: 8rem;
+  background-color: $background-color;
+
+  @include dark-mode {
+    background-color: $dark-background;
+    color: $dark-text;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    color: #666;
+
+    @include dark-mode {
+      color: $dark-text;
+    }
+
+    span {
+      font-size: 0.9rem;
+    }
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1a1a1a;
+
+    @include dark-mode {
+      color: $dark-text;
+    }
+  }
+}
+
+.contact-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.info-card {
+  background: #edeff9;
+  padding: 2rem;
+  border-radius: 1rem;
+
+  @include dark-mode {
+    background-color: $dark-background;
+    color: $dark-text;
+  }
+
+  .icon {
+    color: #6366f1;
+    width: 24px;
+    height: 24px;
+    margin-bottom: 1rem;
+
+    @include dark-mode {
+      color: $dark-primary;
+    }
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #1a1a1a;
+
+    @include dark-mode {
+      color: $dark-text;
+    }
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+
+    @include dark-mode {
+      color: $dark-text;
+    }
+  }
+
+  .link-button {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    @include dark-mode {
+      color: $dark-primary;
+    }
+  }
+}
+
+.consultation-form {
+  // background: rgb(239, 243, 244);
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+  @include dark-mode {
+    background-color: $dark-background;
+    color: $dark-text;
+    box-shadow: none;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+
+    @include dark-mode {
+      color: $dark-text;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #4b5563;
+
+      @include dark-mode {
+        color: $dark-text;
+      }
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      background: white;
+
+      @include dark-mode {
+        background: $dark-background;
+        color: $dark-text;
+        border-color: $dark-primary;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #6366f1;
+
+        @include dark-mode {
+          border-color: $dark-primary;
+        }
+      }
+    }
+  }
+
+  .submit-button {
+    width: 100%;
+    padding: 0.875rem;
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: #4f46e5;
+    }
+
+    @include dark-mode {
+      background-color: $dark-primary;
+
+      &:hover {
+        background-color: darken($dark-primary, 10%);
+      }
+    }
+  }
+}
+
+
+
+.map-and-locations-wrapper {
+  display: flex;
+  gap: 2rem; // Adjust spacing as needed
+  margin-top: 4rem;
   
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  // Make the .map-section take up a smaller portion
+  .map-section {
+    width: 50%; // Control the width of the map
+    margin-right: auto; // Align to the left
 
-// General responsive adjustments
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-@include responsive(mobile) {
-  .container {
-    padding: 0 1rem;
+    
   }
 
-  section {
-    padding: 3rem 0;
+
+
+  // Make the .locations take up the remaining space on the right
+  .locations {
+    width: 50%; // Control the width of the locations
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; // Adjust spacing between centers as needed
+
+
+    
+
+    .center-info {
+      // Styling for each center (Medical Center 1, Medical Center 2)
+      padding: 1rem;
+      background: #f9f9f9;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+
+      
+
+      @include dark-mode {
+        background-color: $dark-background;
+        color: $dark-text;
+        
+      }
+    }
   }
 }
 
-@include responsive(tablet) {
-  .container {
-    padding: 0 2rem;
+
+
+.locations {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
   }
 }
+
+.center-info {
+  h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1.7rem;
+    color: #1a1a1a;
+
+    @include dark-mode {
+      color: $dark-text;
+    }
+  }
+
+  .info-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .icon {
+      color: #6366f1;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 0.25rem;
+
+      @include dark-mode {
+        color: $dark-primary;
+      }
+    }
+
+    p {
+      color: #634b4b;
+      line-height: 1.5;
+      margin: 0;
+
+      @include dark-mode {
+        color: $dark-text;
+      }
+    }
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1rem;
+
+  .error {
+    border-color: #ff4d4f;
+
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+    }
+  }
+
+  .error-message {
+    color: #ff4d4f;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+  }
+}
+
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-top: 3rem;
+
+  a {
+    color: #6366f1;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      color: #4f46e5;
+    }
+
+    @include dark-mode {
+      color: $dark-primary;
+
+      &:hover {
+        color: darken($dark-primary, 10%);
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+/* Styles for star rating */
+.star-rating {
+  font-size: 1.5rem;
+  color: #ccc; /* Default color for stars */
+}
+
+.star-rating .filled {
+  color: gold; /* Color for filled stars */
+}
+
+.star-rating .empty {
+  color: #ccc; /* Color for empty stars */
+}
+
+
+
+
+
+
+
+
 
